@@ -3,7 +3,8 @@ CheckManga
 
 A simple web scraper script that checks manga sites to see if any of the manga I've been reading has been updated. Also generates a database of the manga I'm reading and updates itself whenever the web scraper finds a new chapter has been released.
 
-Notes for improvement:
+Useful additions:
+
 -A 'completed manga' table or db to move any completed series to.
 
 -Being able to update, delete, or add entries in bulk rather than just one by one or being able to update, delete, or add based on a json or text file.
