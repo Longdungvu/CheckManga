@@ -1,11 +1,13 @@
 CheckManga
 ==========
 
-A simple web scraper script that checks manga fox to see if any of the manga I've been reading has been updated. Also generates a database of the manga I'm reading and updates itself whenever the web scraper finds a new chapter has been released.
+A simple web scraper script that checks manga sites to see if any of the manga I've been reading has been updated. Also generates a database of the manga I'm reading and updates itself whenever the web scraper finds a new chapter has been released.
 
 Notes for improvement:
--Interactions with the database are the slowest part. Currently, retrieving a title from the db, checking for updates, and then commiting changes back to the db. Simply loading the entire DB first, making necessary updates, and then writing it all back at the same time would likely be much faster.
+-A 'completed manga' table or db to move any completed series to.
+-Being able to update, delete, or add entries in bulk rather than just one by one or being able to update, delete, or add based on a json or text file.
+-Generating a table or db from a json file or text file of information about the manga
+-Support for multiple websites or removing dependence on one particular site since sometimes a series will be unavailable on certain sites.
+-Being able to indicate whether you've read the manga that has the most recent chapter released or not.
+-Being able to "bookmark" your most recent chapter read for a manga that is either completed or that you just started and haven't caught up to the latest chapter released.
 
--Some redundant or non-helpful functionality still in there.
-
--Web scraping and db-functionalities need to be separated a bit more.
