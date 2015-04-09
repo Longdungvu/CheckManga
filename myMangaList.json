@@ -1,0 +1,90 @@
+[
+	{
+		"title":"Btooom!", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/btooom/", 
+		"lastChapterRead":"Btooom! 75", 
+		"mostRecentChapter":"Btooom! 75"
+	}, 
+	{
+		"title":"Bleach", 
+		"site": "MangaTown", 
+		"status": "Ongoing", 
+		"url":"http://mangatown.com/manga/bleach/", 
+		"lastChapterRead":"Bleach 621", 
+		"mostRecentChapter":"Bleach 621"
+	}, 
+	{
+		"title":"Magi", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://www.mangatown.com/manga/magi/", 
+		"lastChapterRead":"Magi 260", 
+		"mostRecentChapter":"Magi 260"
+	}, 
+	{
+		"title":"Magi - Sinbad no Bouken", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/magi_sinbad_no_bouken/", 
+		"lastChapterRead":"Magi - Sinbad no Bouken 54", 
+		"mostRecentChapter":"Magi - Sinbad no Bouken 54"
+	}, 
+	{
+		"title":"Tate no Yuusha no Nariagari", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/tate_no_yuusha_no_nariagari/",
+		"lastChapterRead":"Tate no Yuusha no Nariagari 12", 
+		"mostRecentChapter":"Tate no Yuusha no Nariagari 12"
+	}, 
+	{
+		"title":"Onepunch-Man", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/onepunch_man/", 
+		"lastChapterRead":"Onepunch-Man 44", 
+		"mostRecentChapter":"Onepunch-Man 44"
+	}, 
+	{
+		"title":"Mob Psycho 100", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/mob_psycho_100/", 
+		"lastChapterRead":"Mob Psycho 100 82.2", 
+		"mostRecentChapter":"Mob Psycho 100 82.2"
+	}, 
+	{
+		"title":"Shingeki no Kyojin", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/shingeki_no_kyojin", 
+		"lastChapterRead":"Shingeki no Kyojin 67", 
+		"mostRecentChapter":"Shingeki no Kyojin 67"
+	}, 
+	{
+		"title":"Shingeki no Kyojin - Before the Fall", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/shingeki_no_kyojin_before_the_fall/", 
+		"lastChapterRead": "Shingeki no Kyojin - Before the Fall 10", 
+		"mostRecentChapter":"Shingeki no Kyojin - Before the Fall 10"
+	}, 
+	{
+		"title":"Hunter x Hunter", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://mangatown.com/manga/hunter_x_hunter/", 
+		"lastChapterRead":"Hunter X Hunter 349", 
+		"mostRecentChapter":"Hunter X Hunter 349"
+	}, 
+	{
+		"title":"Area D - Inou Ryouiki", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://www.mangatown.com/manga/area_d_inou_ryouiki/", 
+		"lastChapterRead":"Area D - Inou Ryouiki 107", 
+		"mostRecentChapter":"Area D - Inou Ryouiki 107"
+	}
+]
