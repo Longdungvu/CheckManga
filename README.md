@@ -4,10 +4,11 @@ CheckManga
 A simple web scraper that scrapes manga hosting websites to see if any of the manga I've been reading has been updated. Stores data on each title, manga hosting website, and how to scrape each site in a database. Database updates whenever the web scraper finds a new chapter has been released. Working on implementing a new "bookmarking" feature that will let me keep track of new manga I start reading where I am not yet caught up to the most recent chapter or where the series has been completed.
 
 4/9/2015 
--Web scraper is now site independent (removed dependence on a single particular site for all of the manga scraping.)
--Changed database schema so that there are now 3 tables in the SQLite database. (manga, sites, and tags)
--Wrote a function to generate a database from Json files.
--Can now add 'Completed' manga to the db which will not be scraped.
+
+-Web scraper is now site independent (removed dependence on a single particular site for all of the manga scraping.)  
+-Changed database schema so that there are now 3 tables in the SQLite database. (manga, sites, and tags)  
+-Wrote a function to generate a database from Json files.  
+-Can now add 'Completed' manga to the db which will not be scraped.  
 -Distinction between LastChapterRead and MostRecentChapter now.
 
 Useful additions:
