@@ -1,20 +1,17 @@
 from bs4 import BeautifulSoup as BSoup
 import requests
 import sqlite3
+import sys
 
 #'mycheckmanga.db' is the name of the exmaple database included with this code.
 
-con = sqlite3.connect('mycheckmanga.db')
-con.row_factory = sqlite3.Row
-cur = con.cursor()
 
-
-def db_get_entry_info(title, cur=cur):
+def db_get_entry_info(title, cur):
     """Input: Manga title, and cursor object 
     Output: Returns a dictionary of the manga's info from the db, keys to the dict are columns of the db."""
     cur.execute("SELECT * FROM manga WHERE Title = (?)", [title])
     entry = cur.fetchone()
-    return dict(entry)
+    return dict(entry) 
 
 def scrape_latest_chapter(url, site_path):
     """Input: A url string and a 'site_path' which is essentially a Json object. (A list of dictionaries. The dictionaries are html tags and are arranged in a specific order.)
@@ -27,13 +24,17 @@ def scrape_latest_chapter(url, site_path):
             chapter = chapter.find(tag['TagName'])
     return chapter.text.strip()
 
-def update_manga(title, cur=cur, con=con):
+def update_manga(title, cur, con, cache_dict):
     """Input: The title of a manga in the db. 
     Output: None, this function scrapes the latest chapter of the manga and updates that column for that manga in the database."""
-    entry = db_get_entry_info(title)
+    entry = db_get_entry_info(title, cur)
+    if cache_dict.get(entry["Site"]) != None:
+        site_path = cache_dict.get(entry["Site"])
+    else:
     #The SQL statement below retrieves the "site_path" (aka instructions on how to scrape that manga site) from the tags table of the db.
-    cur.execute("SELECT * FROM tags WHERE site=(?) ORDER BY ID ASC", [entry['Site']])
-    site_path = cur.fetchall()
+        cur.execute("SELECT * FROM tags WHERE site=(?) ORDER BY ID ASC", [entry['Site']])
+        site_path = cur.fetchall()
+        cache_dict[entry["Site"]] = site_path
     print "Currently Scraping:", title
     try:
         most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
@@ -46,23 +47,30 @@ def update_manga(title, cur=cur, con=con):
         return None
 
         
-def update_last_read(title, cur=cur, con=con):
+def update_last_read(title, cur, con):
     """Input: The title of a manga.
     Output: None. Updates the db so that LastChapterRead = MostRecentChapter."""
     cur.execute("UPDATE manga SET LastChapterRead = MostRecentChapter WHERE Title = (?)", [title])
     con.commit()
 
-def check_manga(cur=cur, con=con, auto_up=True):
+def check_manga(cur, con, cache_dict, auto_up=True):
     """Input: The cursor object and an auto_update boolean (default=True) that tells the function whether to automatically update LastChapterRead to be the same as MostRecentChapter.
     Output: None. Updates the DB by scraping for chapters for manga where Status = 'Ongoing' and where MostRecentChapter = LastChapterRead"""
     cur.execute("SELECT Title FROM manga WHERE Status = 'Ongoing'")
     rows = cur.fetchall()
     for manga in rows:
-        update_manga(manga['Title'])
+        update_manga(manga['Title'], cur, con, cache_dict)
         if auto_up == True:
-            update_last_read(manga['Title'])
+            update_last_read(manga['Title'], cur, con)
 
 
-
-check_manga()
-con.close()
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        sys.exit("Please pass '--check' as an argument to check manga.")
+    elif (sys.argv[1]=='--check'):
+        con = sqlite3.connect('mycheckmanga.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cache_dict = {}
+        check_manga(cur, con, cache_dict)
+        con.close()
