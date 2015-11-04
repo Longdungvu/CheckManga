@@ -19,7 +19,7 @@ def db_get_entry_info(title, cur=cur):
 def scrape_latest_chapter(url, site_path):
     """Input: A url string and a 'site_path' which is essentially a Json object. (A list of dictionaries. The dictionaries are html tags and are arranged in a specific order.)
     Output: A string scraped from the provided url that is the latest chapter of the manga at that url."""
-    chapter = BSoup(requests.get(url).text)
+    chapter = BSoup(requests.get(url, timeout=10).text)
     for tag in site_path:
         if tag['TagClass'] != None:
             chapter = chapter.find(tag['TagName'], {'class':tag['TagClass']})
@@ -34,11 +34,17 @@ def update_manga(title, cur=cur, con=con):
     #The SQL statement below retrieves the "site_path" (aka instructions on how to scrape that manga site) from the tags table of the db.
     cur.execute("SELECT * FROM tags WHERE site=(?) ORDER BY ID ASC", [entry['Site']])
     site_path = cur.fetchall()
-    most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
-    if entry['MostRecentChapter'] != most_recent_chapter:     
-        cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,title)) 
-        print 'A new chapter has been released for ' + title
-    con.commit()
+    print "Currently Scraping:", title
+    try:
+        most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
+        if entry['MostRecentChapter'] != most_recent_chapter:     
+            cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,title)) 
+            print 'A new chapter has been released for ' + title
+        con.commit()
+    except requests.exceptions.ConnectionError:
+        print "Connection Timed out while scraping:",title ,"site may be down."
+        return None
+
         
 def update_last_read(title, cur=cur, con=con):
     """Input: The title of a manga.
