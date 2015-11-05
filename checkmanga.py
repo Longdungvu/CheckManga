@@ -74,3 +74,10 @@ if __name__ == "__main__":
         cache_dict = {}
         check_manga(cur, con, cache_dict)
         con.close()
+    elif (sys.argv[1]== '--bookmarks'):
+        con = sqlite3.connect('mycheckmanga.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute("SELECT Title, LastChapterRead FROM manga")
+        for manga in cur.fetchall():
+            print manga 
