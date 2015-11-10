@@ -23,29 +23,6 @@ def scrape_latest_chapter(url, site_path):
         else:
             chapter = chapter.find(tag['TagName'])
     return chapter.text.strip()
-
-def update_manga(title, cur, con, cache_dict):
-    """Input: The title of a manga in the db. 
-    Output: None, this function scrapes the latest chapter of the manga and updates that column for that manga in the database."""
-    entry = db_get_entry_info(title, cur)
-    if cache_dict.get(entry["Site"]) != None:
-        site_path = cache_dict.get(entry["Site"])
-    else:
-    #The SQL statement below retrieves the "site_path" (aka instructions on how to scrape that manga site) from the tags table of the db.
-        cur.execute("SELECT * FROM tags WHERE site=(?) ORDER BY ID ASC", [entry['Site']])
-        site_path = cur.fetchall()
-        cache_dict[entry["Site"]] = site_path
-    print "Currently Scraping:", title
-    try:
-        most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
-        if entry['MostRecentChapter'] != most_recent_chapter:     
-            cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,title)) 
-            print 'A new chapter has been released for ' + title
-        con.commit()
-    except requests.exceptions.ConnectionError:
-        print "Connection Timed out while scraping:",title ,"site may be down."
-        return None
-
         
 def update_last_read(title, cur, con):
     """Input: The title of a manga.
@@ -56,12 +33,28 @@ def update_last_read(title, cur, con):
 def check_manga(cur, con, cache_dict, auto_up=True):
     """Input: The cursor object and an auto_update boolean (default=True) that tells the function whether to automatically update LastChapterRead to be the same as MostRecentChapter.
     Output: None. Updates the DB by scraping for chapters for manga where Status = 'Ongoing' and where MostRecentChapter = LastChapterRead"""
-    cur.execute("SELECT Title FROM manga WHERE Status = 'Ongoing'")
-    rows = cur.fetchall()
-    for manga in rows:
-        update_manga(manga['Title'], cur, con, cache_dict)
+    cur.execute("SELECT * FROM manga WHERE Status = 'Ongoing'")
+    all_rows = cur.fetchall()    
+    for entry in all_rows:
+        if cache_dict.get(entry["Site"]) != None:
+            site_path = cache_dict.get(entry["Site"])
+        else:
+        #The SQL statement below retrieves the "site_path" (aka instructions on how to scrape that manga site) from the tags table of the db.
+            cur.execute("SELECT * FROM tags WHERE site=(?) ORDER BY ID ASC", [entry['Site']])
+            site_path = cur.fetchall()
+            cache_dict[entry["Site"]] = site_path
+        print "Currently Scraping:", entry["Title"]
+        try:
+            most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
+            if entry['MostRecentChapter'] != most_recent_chapter:     
+                cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,title)) 
+                print 'A new chapter has been released for ' + entry["Title"]
+            con.commit()
+        except requests.exceptions.ConnectionError:
+            print "Connection Timed out while scraping:",entry["Title"] ,"site may be down."
+            return None
         if auto_up == True:
-            update_last_read(manga['Title'], cur, con)
+            update_last_read(entry['Title'], cur, con)
 
 
 if __name__ == "__main__":
@@ -81,3 +74,10 @@ if __name__ == "__main__":
         cur.execute("SELECT Title, LastChapterRead FROM manga")
         for manga in cur.fetchall():
             print manga 
+
+
+
+
+
+
+
