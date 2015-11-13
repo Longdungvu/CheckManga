@@ -16,7 +16,7 @@ def db_get_entry_info(title, cur):
 def scrape_latest_chapter(url, site_path):
     """Input: A url string and a 'site_path' which is essentially a Json object. (A list of dictionaries. The dictionaries are html tags and are arranged in a specific order.)
     Output: A string scraped from the provided url that is the latest chapter of the manga at that url."""
-    chapter = BSoup(requests.get(url, timeout=10).text)
+    chapter = BSoup(requests.get(url, timeout=30).text)
     for tag in site_path:
         if tag['TagClass'] != None:
             chapter = chapter.find(tag['TagName'], {'class':tag['TagClass']})
@@ -47,30 +47,26 @@ def check_manga(cur, con, cache_dict, auto_up=True):
         try:
             most_recent_chapter = scrape_latest_chapter(entry['Url'], site_path)
             if entry['MostRecentChapter'] != most_recent_chapter:     
-                cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,title)) 
+                cur.execute("UPDATE manga SET MostRecentChapter = (?) WHERE Title = (?)", (most_recent_chapter,entry["Title"])) 
                 print 'A new chapter has been released for ' + entry["Title"]
             con.commit()
         except requests.exceptions.ConnectionError:
             print "Connection Timed out while scraping:",entry["Title"] ,"site may be down."
-            return None
-        if auto_up == True:
-            update_last_read(entry['Title'], cur, con)
+        # if auto_up == True:
+        #     update_last_read(entry['Title'], cur, con)
 
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        sys.exit("Please pass '--check' as an argument to check manga.")
-    elif (sys.argv[1]=='--check'):
-        con = sqlite3.connect('mycheckmanga.db')
-        con.row_factory = sqlite3.Row
-        cur = con.cursor()
+        sys.exit("Please pass '--check' or '--bookmarks' as an argument to check manga.")
+    con = sqlite3.connect('mycheckmanga.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    if (sys.argv[1]=='--check'):
         cache_dict = {}
         check_manga(cur, con, cache_dict)
         con.close()
     elif (sys.argv[1]== '--bookmarks'):
-        con = sqlite3.connect('mycheckmanga.db')
-        con.row_factory = sqlite3.Row
-        cur = con.cursor()
         cur.execute("SELECT Title, LastChapterRead FROM manga")
         for manga in cur.fetchall():
             print manga 
