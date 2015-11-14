@@ -26,6 +26,10 @@ Useful additions:
 =================
 -Being able to update, delete, or add entries in bulk rather than just one by one or being able to update, delete, or add based on a json or text file. (Can already generate a db from json files, now need functions for bulk addition or deletion (or update?) from db from a json or text file.)
 
--Being able to "bookmark" your most recent chapter read for a manga that is either completed or that you just started and haven't caught up to the latest chapter released. (Still need to fully implement functions. Ex. function that will query the database and Return all of the the "bookmarks" and how to bookmark/not scrape a manga title that is ongoing but where you have not yet caught up to the most recent chapter.)
+-Being able to "bookmark" your most recent chapter read for a manga that is either completed or that you just started and haven't caught up to the latest chapter released. (Change Statuses from 'Ongoing' and 'Completed' to 'Scrape' and 'Bookmark'. Figure out how to merge LastChapterRead and MostRecentChapter columns.)
 
 -Figure out naming conventions for the column names in the db and the example json names (how to be consistent despite two different sets of rules?) Set foreign key in the tags table?
+ 
+-Make branch for this command line version. Flesh out the master branch as a web app with Flask or Django. 
+
+-Add in more manga sites.
