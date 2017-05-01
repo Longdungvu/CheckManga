@@ -1,0 +1,3 @@
+graft CheckManga/templates
+graft CheckManga/static
+include CheckManga/schema.sql
