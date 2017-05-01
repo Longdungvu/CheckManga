@@ -1,0 +1,1 @@
+from .checkmanga import app

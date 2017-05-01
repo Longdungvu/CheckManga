@@ -1,0 +1,11 @@
+MANIFEST.in
+CheckManga/__init__.py
+CheckManga/checkmanga.py
+CheckManga/schema.sql
+CheckManga.egg-info/PKG-INFO
+CheckManga.egg-info/SOURCES.txt
+CheckManga.egg-info/dependency_links.txt
+CheckManga.egg-info/requires.txt
+CheckManga.egg-info/top_level.txt
+CheckManga/templates/.DS_Store
+CheckManga/templates/main_page.html
