@@ -1,0 +1,38 @@
+API:
+
+check_manga (GET) - return a scraped list of manga that has been updated from the Ongoing list of Manga.
+
+add_manga (POST) - Add a new manga to the DB
+
+change_manga_status/JSON (POST) - Change a manga from Ongoing to bookmarked and vice versa. Move a manga to the completed list. 
+
+delete_manga/JSON (POST) - Completely remove the manga from the db.
+
+bookmarked_manga/JSON (GET) - return a list of all b
+
+print_last_read/JSON (GET) - Give in a name print the chapti biniiiiiiiiiiiiiiiiiiiiiiiiiiiiiio
+
+add_new_site (POST) - 
+
+get_supported_sites (GET)
+
+
+Updates
+
+display name: (string)
+site: (string, must match a key)
+Status: (Ongoing, Bookmarked)
+url: (url)
+last chapter read: (String)
+time last updated: (timestamp)
+time last checked: (timestamp)
+Most Recent Chapter: ()
+cover image: (url)
+Notes: (String)
+
+
+Completed
+display name: (String)
+Rating: (Number out of 10)
+Review: (String)
+

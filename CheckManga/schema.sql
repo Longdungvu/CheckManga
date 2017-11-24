@@ -10,7 +10,10 @@ CREATE TABLE manga(
 	Status TEXT,
 	Url TEXT,
 	LastChapterRead TEXT,
+	TimeLastUpdated TEXT,
+	TimeLastChecked TEXT,
 	MostRecentChapter TEXT,
+	CoverImageUrl TEXT,
 	FOREIGN KEY(Site) REFERENCES sites(SiteName)
 );
 CREATE TABLE tags(
@@ -19,6 +22,11 @@ CREATE TABLE tags(
 	TagName TEXT,
 	TagClass TEXT,
 	FOREIGN KEY(Site) REFERENCES sites(SiteName)
+);
+CREATE TABLE completed(
+	Title TEXT PRIMARY KEY,
+	Rating INT,
+	Review TEXT
 );
 
 

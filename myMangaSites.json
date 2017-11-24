@@ -3,9 +3,8 @@
 		"name":"MangaTown",
 		"path": [{"name":"ul", "class":"chapter_list", "action":"find"},
 			{"name":"li", "class":null, "action":"find"},
-			{"name":"a", "class":null, "action":"find"},
-			{"name":null, "class":null, "action":"text"}]
-	}
+			{"name":"a", "class":null, "action":"find"}]
+	},
 	{
 		"name":"MangaTown_cover",
 		"path": [{"name":"ul", "class":"chapter_list", "action":"find"},
