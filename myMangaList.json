@@ -4,87 +4,144 @@
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/btooom/", 
-		"lastChapterRead":"Btooom! 75", 
-		"mostRecentChapter":"Btooom! 75"
+		"lastChapterRead":"Btooom! 75",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Btooom! 75",
+		"coverImageUrl": "http://mangatown.com/"
+
 	}, 
 	{
 		"title":"Bleach", 
 		"site": "MangaTown", 
-		"status": "Ongoing", 
+		"status": "Complete", 
 		"url":"http://mangatown.com/manga/bleach/", 
 		"lastChapterRead":"Bleach 621", 
-		"mostRecentChapter":"Bleach 621"
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Bleach 621",
+		"coverImageUrl":"http://mangatown.com/"
 	}, 
 	{
 		"title":"Magi", 
 		"site":"MangaTown", 
-		"status":"Ongoing", 
+		"status":"Complete", 
 		"url":"http://www.mangatown.com/manga/magi/", 
 		"lastChapterRead":"Magi 260", 
-		"mostRecentChapter":"Magi 260"
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Magi 260",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Magi - Sinbad no Bouken", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/magi_sinbad_no_bouken/", 
-		"lastChapterRead":"Magi - Sinbad no Bouken 54", 
-		"mostRecentChapter":"Magi - Sinbad no Bouken 54"
+		"lastChapterRead":"Magi - Sinbad no Bouken 54",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Magi - Sinbad no Bouken 54",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Tate no Yuusha no Nariagari", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/tate_no_yuusha_no_nariagari/",
-		"lastChapterRead":"Tate no Yuusha no Nariagari 12", 
-		"mostRecentChapter":"Tate no Yuusha no Nariagari 12"
+		"lastChapterRead":"Tate no Yuusha no Nariagari 12",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Tate no Yuusha no Nariagari 12",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Onepunch-Man", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/onepunch_man/", 
-		"lastChapterRead":"Onepunch-Man 44", 
-		"mostRecentChapter":"Onepunch-Man 44"
+		"lastChapterRead":"Onepunch-Man 44",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Onepunch-Man 44",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Mob Psycho 100", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/mob_psycho_100/", 
-		"lastChapterRead":"Mob Psycho 100 82.2", 
-		"mostRecentChapter":"Mob Psycho 100 82.2"
+		"lastChapterRead":"Mob Psycho 100 82.2",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Mob Psycho 100 82.2",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Shingeki no Kyojin", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/shingeki_no_kyojin", 
-		"lastChapterRead":"Shingeki no Kyojin 67", 
-		"mostRecentChapter":"Shingeki no Kyojin 67"
+		"lastChapterRead":"Shingeki no Kyojin 67",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Shingeki no Kyojin 67",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Shingeki no Kyojin - Before the Fall", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/shingeki_no_kyojin_before_the_fall/", 
-		"lastChapterRead": "Shingeki no Kyojin - Before the Fall 10", 
-		"mostRecentChapter":"Shingeki no Kyojin - Before the Fall 10"
+		"lastChapterRead": "Shingeki no Kyojin - Before the Fall 10",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Shingeki no Kyojin - Before the Fall 10",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Hunter x Hunter", 
 		"site":"MangaTown", 
 		"status":"Ongoing", 
 		"url":"http://mangatown.com/manga/hunter_x_hunter/", 
-		"lastChapterRead":"Hunter X Hunter 349", 
-		"mostRecentChapter":"Hunter X Hunter 349"
+		"lastChapterRead":"Hunter X Hunter 349",
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30", 
+		"mostRecentChapter":"Hunter X Hunter 349",
+		"coverImageUrl":"http://mangatown.com/" 
 	}, 
 	{
 		"title":"Area D - Inou Ryouiki", 
 		"site":"MangaTown", 
-		"status":"Ongoing", 
+		"status":"Complete", 
 		"url":"http://www.mangatown.com/manga/area_d_inou_ryouiki/", 
 		"lastChapterRead":"Area D - Inou Ryouiki 107", 
-		"mostRecentChapter":"Area D - Inou Ryouiki 107"
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Area D - Inou Ryouiki 107",
+		"coverImageUrl":"http://mangatown.com/" 
+	},
+	{
+		"title":"Boku no Hero Academia", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"http://www.mangatown.com/manga/boku_no_hero_academia", 
+		"lastChapterRead":"C.159", 
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"C.159",
+		"coverImageUrl":"http://mangatown.com/" 
+	},
+	{
+		"title":"Vigilante: Boku no Hero Academia Illegals", 
+		"site":"MangaTown", 
+		"status":"Ongoing", 
+		"url":"https://www.mangatown.com/manga/vigilante_boku_no_hero_academia_illegals/", 
+		"lastChapterRead":"Vigilante: Boku no Hero Academia Illegals 15", 
+		"timeLastUpdated":"11-20-2017 12:16:30",
+		"timeLastChecked":"11-20-2017 12:16:30",
+		"mostRecentChapter":"Vigilante: Boku no Hero Academia Illegals 15",
+		"coverImageUrl":"http://mangatown.com/" 
 	}
+
 ]
