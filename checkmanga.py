@@ -127,6 +127,3 @@ class CheckMangaUtil:
                 checked_manga[entry["Title"]] = "Connection Timed out while scraping: {0} site may be down.".format(entry["Title"])
         return checked_manga
 
-
-
-
