@@ -13,7 +13,7 @@ class CheckMangaUtil:
         self.cur = self.con.cursor()
         self.site_path_cache= {}
     def get_entry_info(self, title):
-        """Input: Manga title
+        """Input: A string representing the Manga title.
         Output: Returns a dictionary of the manga's info from the db, keys to the dict are columns of the db."""
         self.cur.execute("SELECT * FROM manga WHERE Title = (?)", [title])
         entry = self.cur.fetchone()
@@ -29,8 +29,8 @@ class CheckMangaUtil:
                 chapter = chapter.find(tag['TagName'])
         return chapter.text.strip()
     def get_site_path(self, site):
-        """Input: The name of a specific manga site
-        Output: A list of dictionary-like objects that represent instructions on how to scrape a particular manga site."""
+        """Input: A string representing the name of a specific manga site.
+        Output: Returns a list of dictionary-like objects that represent instructions on how to scrape a particular manga site."""
         if self.site_path_cache.get(site) != None:
             site_path = self.site_path_cache.get(site)
         else:
@@ -39,48 +39,10 @@ class CheckMangaUtil:
             site_path = self.cur.fetchall()
             self.site_path_cache[site] = site_path
         return site_path 
-    def get_all_ongoing(self):
-        """Input: None
-        Output: Returns a list of all entries in the CheckManga DB manga table where status = 'Ongoing'."""
-        self.cur.execute("SELECT * FROM manga WHERE Status = 'Ongoing'")
-        all_ongoing = self.cur.fetchall()
-        return all_ongoing
-    def get_all_bookmarked(self):
-        """Input: None
-        Output: Returns a list of all entries in the CheckManga DB manga table where status = 'Bookmarked'."""
-        self.cur.execute("SELECT * FROM manga WHERE Status = 'Bookmarked'")
-        all_bookmarked = self.cur.fetchall()
-        return all_bookmarked
-    def get_supported_sites(self):
-        """Input: None
-        Output: Returns a list of all entries in the CheckManga DB sites table."""
-        self.cur.execute("SELECT * FROM sites")
-        all_sites = [x[0] for x in self.cur.fetchall()]
-        return all_sites
-    def change_manga_status(self, req):
+    def add_manga(self, req):
         """Input: A dictionary object representing request Json.
-        Output: Returns success message after changing "status" column of a given entry."""
-        self.cur.execute("UPDATE manga SET Status=(?) WHERE Title=(?)", [req["Status"], req["Title"]])
-        self.con.commit()
-        return {"Success": "Successfully updated manga {0} status to {1}".format(req["Title"],req["Status"])}
-    def delete_manga(self, req):
-        """Input: A dictionary object representing request Json.
-        Output: Returns success message after deleting a title from the manga table of the DB."""
-        self.cur.execute("DELETE from manga WHERE Title=(?)", [req["Title"]])
-        self.con.commit()
-        return {"Success": "Successfully deleted {0} from CheckManga DB".format(req["Title"])}
-    def add_new_site(self, req):
-        """Input: A dictionary object representing request Json.
-        Output: Returns success message after adding a new site to the Sites table of the DB and adding the ordered tags in SitePath as a series of entries into the tags table."""
-        self.cur.execute("INSERT into sites VALUES(?)", [req["SiteName"]])
-        for i, tag in enumerate(req["SitePath"]):
-            self.cur.execute("INSERT into tags VALUES(?,?,?,?)", [i, req["SiteName"], tag["TagName"], tag["TagClass"]])
-        self.con.commit()
-        return {"Success": "Successfully added site {0} to CheckManga DB".format(req["SiteName"])}
-    def add_new_manga(self, req):
-        """Input: A dictionary object representing request Json.
-        Output: Returns success message after adding new manga title to the manga table."""
-        if req["Site"] not in self.get_supported_sites():
+        Output: Returns True after adding a new manga title to the manga table."""
+        if req["Site"] not in self.get_all_supported_sites():
             return {"Error": "Requested site currently not supported by checkmanga."}
         MostRecentChapter = self.scrape_latest_chapter(req["Url"], self.get_site_path(req["Site"]))
         LastChapterRead = MostRecentChapter
@@ -89,18 +51,63 @@ class CheckMangaUtil:
         self.cur.execute("INSERT into manga VALUES(?,?,?,?,?,?,?,?,?)", \
             [req["Title"], req["Site"], req["Status"], req["Url"], LastChapterRead, TimeLastUpdated, TimeLastChecked, MostRecentChapter, req["CoverImageUrl"]])
         self.con.commit()
-        return {"Success": "Successfully added {0} to CheckManga DB".format(req["Title"])}
-    def update_last_read(self, req):
+        return True
+    def delete_manga(self, req):
         """Input: A dictionary object representing request Json.
-        Output: Returns success message after updating the LastChapterRead of a title in the manga table."""
+        Output: Returns True after deleting an entry (specinfied in the input, identified by title) from the manga table of the DB."""
+        self.cur.execute("DELETE from manga WHERE Title=(?)", [req["Title"]])
+        self.con.commit()
+        return True
+    def add_site(self, req):
+        """Input: A dictionary object representing request Json.
+        Output: Returns True after adding a new site to the Sites table of the DB and adding the ordered tags in SitePath as a series of entries into the tags table."""
+        self.cur.execute("INSERT into sites VALUES(?)", [req["SiteName"]])
+        for i, tag in enumerate(req["SitePath"]):
+            self.cur.execute("INSERT into tags VALUES(?,?,?,?)", [i, req["SiteName"], tag["TagName"], tag["TagClass"]])
+        self.con.commit()
+        return True
+    def delete_site(self, req):
+        """Input: A dictionary object representing request Json.
+        Output: Returns True after delting a site, specied in the input, from the Sites table and the corresponding tags from the tags table."""
+        self.cur.execute("DELETE from sites WHERE SiteName=(?)", [req["SiteName"]])
+        self.cur.execute("DELETE from tags WHERE Site=(?)", [req["SiteName"]])
+        self.con.commit()
+        return True
+    def change_manga_status(self, req):
+        """Input: A dictionary object representing request Json.
+        Output: Returns True after changing "status" column of the entry specified in the input."""
+        self.cur.execute("UPDATE manga SET Status=(?) WHERE Title=(?)", [req["Status"], req["Title"]])
+        self.con.commit()
+        return True
+    def update_last_chapter_read(self, req):
+        """Input: A dictionary object representing request Json.
+        Output: Returns True after updating the LastChapterRead of a title in the manga table."""
         self.cur.execute("UPDATE manga SET LastChapterRead = (?) WHERE Title = (?)", [req["LastChapterRead"],req["Title"]])
         self.con.commit()
-        return {"Success": "Successfully updated Last Chapter Read of {0} to {1}".format([req["Title"],req["LastChapterRead"]])}
+        return True
+    def get_all_ongoing_manga(self):
+        """Input: None.
+        Output: Returns a list of dictionaries. Each dictionary represents an entry in the CheckManga DB manga table where status = 'Ongoing'."""
+        self.cur.execute("SELECT * FROM manga WHERE Status = 'Ongoing'")
+        all_ongoing = [dict(entry) for entry in self.cur.fetchall()]
+        return all_ongoing
+    def get_all_bookmarked_manga(self):
+        """Input: None.
+        Output: Returns a list of dictionaries. Each dictionary represents an entry in the CheckManga DB manga table where status = 'Bookmarked'."""
+        self.cur.execute("SELECT * FROM manga WHERE Status = 'Bookmarked'")
+        all_bookmarked = [dict(entry) for entry in self.cur.fetchall()]
+        return all_bookmarked
+    def get_all_supported_sites(self):
+        """Input: None
+        Output: Returns a list of dictionaries. Each dictionary represents an entry in the CheckManga DB sites table."""
+        self.cur.execute("SELECT * FROM sites")
+        all_sites = [x[0] for x in self.cur.fetchall()]
+        return all_sites
     def check_manga(self):
         """Input: None
-        Output:  A JSON object detailing which manga have been updated and which have been not."""
+        Output:  A dictionary object detailing which manga have been updated and which have been not."""
         all_rows = self.get_all_ongoing()
-        checkMangaJson = {}  
+        checked_manga = {}  
         for entry in all_rows:
             site_path = self.get_site_path(entry["Site"])
             print "Currently Scraping:", entry["Title"]
@@ -110,15 +117,15 @@ class CheckMangaUtil:
                 if entry['MostRecentChapter'] != most_recent_chapter:     
                     self.cur.execute("UPDATE manga SET MostRecentChapter = (?), LastChapterRead = (?), TimeLastUpdated = (?), TimeLastChecked = (?) WHERE Title = (?)", (most_recent_chapter, most_recent_chapter, time_last_checked, time_last_checked, entry["Title"])) 
                     print 'A new chapter has been released for ' + entry["Title"]
-                    checkMangaJson[entry["Title"]] = "A new chapter has been released"
+                    checked_manga[entry["Title"]] = "A new chapter has been released"
                     self.con.commit()
                 else:
                     self.cur.execute("UPDATE manga SET TimeLastChecked = (?) WHERE Title = (?)", (time_last_checked, entry["Title"])) 
-                    checkMangaJson[entry["Title"]] = "No new chapters have been released since: {0}".format(entry["TimeLastUpdated"])
+                    checked_manga[entry["Title"]] = "No new chapters have been released since: {0}".format(entry["TimeLastUpdated"])
             except requests.exceptions.ConnectionError:                
                 print "Connection Timed out while scraping:",entry["Title"] ,"site may be down."
-                checkMangaJson[entry["Title"]] = "Connection Timed out while scraping: {0} site may be down.".format(entry["Title"])
-        return checkMangaJson
+                checked_manga[entry["Title"]] = "Connection Timed out while scraping: {0} site may be down.".format(entry["Title"])
+        return checked_manga
 
 
 
